@@ -1,111 +1,138 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang=en>
 
-<head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<style>
-.card {font-family:mono;}
+        <style>
+         @font-face {
+             src: url(chalk.ttf);
+             font-family: Chalk;
+         }
+         .card {
+             font-family:mono;
+             border:0px solid transparent;
+         }
+         .backPic {
+             background-color:#1f242e;
+         }
+         .backWhite {
+             background-color:white;
+         }
+         .textColor {
+             color:#FF9200;
+         }
+         .chalk {
+             font-family: chalk;
+         }
+         .links {
+             display:flex;
+             flex-direction:row;
+             justify-content:space-between;
+             padding: 0% 10%;
+         }
+         .toplink {
+             background-color: #ac885e;
+             color: #FFFFFF;
+             padding: 10px 15px;
+             text-align: center;
+             text-decoration: none;
+             text-decoration-color: currentcolor;
+             font-size: 16px;
+             margin-left: 2%;
+         }
+         .toplink:link {
+             text-decoration: none;
+         }
+         .toplink:hover {
+             color: #1f242e;
+         }
+        </style>
+    </head>
 
-}
-
-</style>
-</head>
-
-<html>
-<body>
-
-<h1 class="display-3 text-center">Last Lambda Prototype Links</h1>
-
-<div  class="row justify-content-center">
-<div class="card col-md-6" style="border:2px dotted grey">
-
-<h3 class="offset-md-1">
-<a href="lambda.html">
-Lambda Mk1
-</a>
----Horizontal Layout 
-</h3>
-<h5 class="offset-md-1">Feedback: Change the positioning of the contents so that it is
-vertical</h5>
-
-
-<h3 class="offset-md-1">
-<a href="lambda3.html">
-Lambda Mk2
-</a>
----Vertical Layout 
-</h3>
-<h5 class="offset-md-1">Feedback: Remove the dotted lines around the posts and  links.
-Make the links at the bottom of the page horizontal instead of vertical </h5>
-
-
-
-<h3 class="offset-md-1">
-<a href="lambdaMk3.html">
-Lambda Mk3
-</a>
----Adjusted dotted lines around links and posts 
-</h3>
-<h5 class="offset-md-1">Feedback: Remove the about section and solidify the grey dotted
-lines on the posts.</h5>
-
-
-<h3 class="offset-md-1">
-<a href="lambdaMk4.html">
-Lambda Mk4
-</a>
----Removed the About section
-</h3>
-
-<h3 class="offset-md-1">
-<a href="lambdaMk5.html">
-Lambda Mk5
-</a>
----Changed the whole tone
-</h3>
-
-<h3 class="offset-md-1">
-<a href="lambdaMk6.html">
-Lambda Mk6
-</a>
----Black background | Orange border | Orange title
-</h3>
-
-</div>
-</div>
-
-<!--Post Templates-->
-<div class="d-flex p-4"></div>
-<h2 class="text-center">Post Templates</h2>
-<div  class="row justify-content-center">
-<div class="card col-md-6" style="border:2px dotted green">
-
-<div class="d-flex p-4"></div>
-
-<h3 class="offset-md-1">
-<a href="postTemplate.html">
-Post Template Mk1
-</a>
----Basic layout
-</h3>
-
-<h3 class="offset-md-1">
-<a href="postTemplateMk2.html">
-Post Template Mk2
-</a>
----Removed grey dotted lines around the post
-</h3>
+    <body class="backPic" style="color:black;">
 
 
-<div class="d-flex p-4"></div>
+
+        <!--Title-->
+
+        <div class="d-flex p-4" style="background-color:transparent;"></div>
+
+        <div class="row justify-content-center col-md-12">
+            <p class="display-4 text-center col-md-8" style="font-family:mono; background-color:transparent;margin:0 0 3% 0">
+                <b class="text-white chalk">
+                    Slightly Preferable to the Alternative
+                </b>
+            </p>
+        </div>
 
 
-</div>
-</div>
+        <!--Links-->
+
+        <div class="row justify-content-center col-md-12 bg-transparent">
+
+                <div class="links card-deck col-md-10">
+
+                    <a class="toplink col-md-2"href="#1">Cool Link</a>
+                    <a class="toplink col-md-2"href="#1">Cool Link</a>
+                    <a class="toplink col-md-2"href="#1">Cool Link</a>
+                    <a class="toplink col-md-2"href="#1">Cool Link</a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Posts -->
+        <style>
+         hr {
+             display:block;
+             border-width: 2px;
+             border-color: grey;
+         }
+        </style>
+
+        <div class="row justify-content-center col-md-12">
+            <div class="card col-md-8 rounded-0" style="border: 5px solid #AC885E; padding:1%; margin:1%;">
+                <div class="card" style=":2px solid grey;">
+                    <h3 class="card-title"><b>Fusion Reactor</b></h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+
+                <hr>
+
+                <div class="card">
+                    <div class="d-flex p-2"></div>
+                    <h3 class="card-title"><b>My New Hair</b></h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <hr>
+
+                <div class="card">
+                    <div class="d-flex p-2" style="background-color:transparent;"></div>
+                    <h3 class="card-title"><b>Plastic Batteries</b></h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+
+                <hr>
+
+                <div class="card">
+                    <div class="d-flex p-2" style="background-color:transparent;"></div>
+                    <h3 class="card-title"><b>Building a programming language</b></h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+
+                <hr>
+
+                <div class="d-flex p-2" style="background-color:transparent;"></div>
+                <h3 class="card-title"><b>100th post celebration</b></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+
+        </div>
+
+    </body>
 
 
-</body>
 </html>

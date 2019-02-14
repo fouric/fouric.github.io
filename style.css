@@ -1,0 +1,72 @@
+@font-face {
+    src: url(chalk.ttf);
+    font-family: Chalk;
+}
+.card {
+    font-family:mono;
+    border:0px solid transparent;
+}
+.backPic {
+    background-color:#1f242e;
+}
+.backWhite {
+    background-color:white;
+}
+.textColor {
+    color:#FF9200;
+}
+.chalk {
+    font-family: chalk;
+}
+.links {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    padding: 0% 10%;
+}
+.toplink {
+    background-color: #ac885e;
+    color: #FFFFFF;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    text-decoration-color: currentcolor;
+    font-size: 16px;
+    margin-left: 20px;
+    border-radius: 4px;
+}
+.toplink:link {
+    text-decoration: none;
+}
+.toplink:hover {
+    color: #1f242e;
+}
+a {color:black;}
+
+div > p > a {
+    color:#ac885e;
+}
+
+
+div > div > a:hover {
+    text-decoration: none;
+    color:black;
+}
+
+.helvetica{
+    font-family: Helvetica;
+}
+
+.margin-left{
+    margin-left: 10%;
+    line-height: 9px;
+}
+
+hr {
+    display:block;
+    border-width: 2px;
+    border-color: grey;
+}
+.marg {margin:4%;}
+.marg2 {margin:2%;}
+.colorBlack {color: black;}

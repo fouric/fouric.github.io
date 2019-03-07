@@ -42,36 +42,14 @@
 
                     (:div :class "row justify-content-center col-md-12"
                           (:div :class "card col-md-8 rounded-0" :style "border: 5px solid #AC885E; padding:1%; margin:1%;"
-                                (:a :href "#2"
-                                    (:div :class "card"
-                                          (:h3 :class "card-title"
-                                               (:b "Fusion Reactor"))
-                                          (:p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")))
-                                (:hr)
-
-                                (:a :href "#2"
-                                    (:div :class "card"
-                                          (:h3 :class "card-title"
-                                               (:b "My New Hair"))
-                                          (:p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")))
-                                (:hr)
-
-                                (:a :href "#2"
-                                    (:div :class "card"
-                                          (:h3 :class "card-title"
-                                               (:b "Plastic Batteries"))
-                                          (:p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")))
-                                (:hr)
-
-                                (:a :href "#2"
-                                    (:div :class "card"
-                                          (:h3 :class "card-title"
-                                               (:b "Language Design"))
-                                          (:p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")))
-                                (:hr)
-
-                                (:a :href "#2"
-                                    (:div :class "card"
-                                          (:h3 :class "card-title"
-                                               (:b "100th Post Celebration"))
-                                          (:p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."))))))))))
+                                (f:intersperse '(("Fusion Reactor" "foo3" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+                                                 ("My New Hair" "#2" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+                                                 ("Plastic Batteries" "#2" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+                                                 ("Language Creation" "#2" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+                                                 ("100th Post Celebration" "#2" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")) post
+                                                 (htm (:a :href (second post)
+                                                          (:div :class "card"
+                                                                (:h3 :class "card-title"
+                                                                     (:b (str (first post))))
+                                                                (:p (str (third post))))))
+                                                 (htm (:hr))))))))))

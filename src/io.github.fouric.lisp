@@ -1,9 +1,10 @@
 (in-package :io.github.fouric)
 
-(proclaim '(optimize (speed 0) (safety 0) (space 0) (debug 3)))
+(declaim (optimize (speed 0) (safety 0) (space 0) (debug 3)))
 
 (eval-when (:compile-toplevel)
-  (setf (html-mode) :html5))
+  (setf (html-mode) :html5
+        *attribute-quote-char* #\"))
 
 (defun generate ()
   (with-open-file (f (fouric:resource "index.sexp.html" :io.github.fouric)

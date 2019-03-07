@@ -14,7 +14,7 @@
   :description "CL system for generating blag"
 
   :serial t
-  :depends-on (:cl-who :fouric)
+  :depends-on (:cl-who :fouric :cl-css)
   :pathname "src"
   :components ((:file "package")
                (:file "io.github.fouric")))

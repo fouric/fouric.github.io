@@ -23,26 +23,26 @@
               (:meta :name "description" :content "fouric's blog")
               (:title "Index | Slighty Preferable to the Alternative"))
 
-             (:body :class "backPic" :style "color:black"
-                    (:div :class "d-flex p-4" :style "background-color:transparent")
+             (:body :class "backPic" :style (inline-css '(:color black))
+                    (:div :class "d-flex p-4" :style (inline-css '(:background-color transparent)))
 
                     (:div :class "row justify-content-center col-md-12"
-                          (:p :class "display-4 text-center col-md-8" :style "font-family:mono; background-color:transparent;margin:0 0 3% 0"
+                          (:p :class "display-4 text-center col-md-8" :style (inline-css '(:font-family mono :background-color transparent :margin "0 0 3% 0"))
                               (:b :class "text-white chalk"
                                   "Slightly Preferable to the Alternative")))
 
                     (:div :class "row justify-content-center col-md-12"
-                          (:div :class "card col-md-8" :style "background-color:transparent"
+                          (:div :class "card col-md-8" :style (inline-css '(:background-color transparent))
                                 (:div :class "links"
                                       (loop :for label/url :in '(("Index" "index.html")
                                                                  ("About" "#1")
                                                                  ("Contact" "#1")
                                                                  ("Links" "links.html"))
                                             :do (htm (:a :href (second label/url) :class "toplink" (str (first label/url))))))))
-                    (:style "hr{display:block;border-width:2px;border-color:grey;}")
+                    (:style (css '((hr :display block :border-width 2px :border-color grey))))
 
                     (:div :class "row justify-content-center col-md-12"
-                          (:div :class "card col-md-8 rounded-0" :style "border: 5px solid #AC885E; padding:1%; margin:1%;"
+                          (:div :class "card col-md-8 rounded-0" :style (inline-css '(:border "5px solid #AC885E" :padding 1% :margin 1%))
                                 (loop :for post :in '(("Fusion Reactor" "foo3" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
                                                       ("My New Hair" "#2" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
                                                       ("Plastic Batteries" "#2" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")

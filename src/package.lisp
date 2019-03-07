@@ -1,4 +1,4 @@
 (defpackage :io.github.fouric
-  (:use :cl :who)
+  (:use :cl :who :cl-css)
   (:local-nicknames (:f :fouric))
   (:export #:generate))

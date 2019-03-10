@@ -1,4 +1,6 @@
-(defpackage :io.github.fouric
+(defpackage :blag
   (:use :cl :who :cl-css)
   (:local-nicknames (:f :fouric))
-  (:export #:generate))
+  (:export
+   #:links
+   #:index))

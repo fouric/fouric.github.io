@@ -17,4 +17,6 @@
   :depends-on (:cl-who :fouric :cl-css)
   :pathname "src"
   :components ((:file "package")
+               (:file "common")
+               (:file "links")
                (:file "index")))

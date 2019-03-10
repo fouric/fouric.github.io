@@ -36,7 +36,7 @@
      (:link :rel "stylesheet"
             :href "style.css")
      (:meta :name "description" :content "fouric's blog")
-     (:title (str (format nil "~a | Slighty Preferable to the Alternative" page-title))))))
+     (:title (str (format nil "~a | Slightly Preferable to the Alternative" page-title))))))
 
 (defun generate ()
   (with-open-file (f (fouric:resource "index.sexp.html" :io.github.fouric)

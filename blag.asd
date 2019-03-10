@@ -1,12 +1,12 @@
 ;;;; -*- Mode: Lisp; Syntax: ANSI-Common-Lisp; Base: 10 -*-
 
-(defpackage #:io.github.fouric-asd
+(defpackage #:blag-asd
   (:use :cl :asdf))
 
-(in-package :io.github.fouric-asd)
+(in-package :blag-asd)
 
-(defsystem io.github.fouric
-  :name "io.github.fouric"
+(defsystem blag
+  :name "blag"
   :version "0.0.0"
   :maintainer "fouric"
   :author "fouric"
@@ -17,4 +17,4 @@
   :depends-on (:cl-who :fouric :cl-css)
   :pathname "src"
   :components ((:file "package")
-               (:file "io.github.fouric")))
+               (:file "index")))

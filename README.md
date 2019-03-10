@@ -4,4 +4,4 @@ My blog. Very much work-in-progress. My goal is to build an attractive, function
 
 ## quickstart
 
-Check out https://github.com/fouric/fouric.github.io/blob/master/src/io.github.fouric.lisp for the code I'm currently playing around with to generate HTML!
+Check out https://github.com/fouric/fouric.github.io/blob/master/src/index.lisp for the code I'm currently playing around with to generate HTML!

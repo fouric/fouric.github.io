@@ -19,4 +19,5 @@
   :components ((:file "package")
                (:file "common")
                (:file "links")
-               (:file "index")))
+               (:file "index")
+               (:file "generate")))

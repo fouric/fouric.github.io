@@ -3,4 +3,5 @@
   (:local-nicknames (:f :fouric))
   (:export
    #:links
-   #:index))
+   #:index
+   #:generate))

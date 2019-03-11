@@ -42,20 +42,19 @@
   (trivial-shell:shell-command (concatenate 'string "tidy -imq -w 0 " (namestring (f:resource path :blag)))))
 
 (defmacro with-boilerplate ((path page-title) &body body)
-  (let ((path (concatenate 'string path ".html")))
-    (a:once-only (path page-title)
-      (a:with-gensyms (f)
-        `(progn
-           (with-open-file (,f (f:resource ,path :blag)
-                               :direction :output
-                               :if-exists :supersede)
-             (with-html-output (,f nil :prologue t :indent t)
-               (:html :lang "en"
-                      (html-header ,f ,page-title)
+  (a:once-only (path page-title)
+    (a:with-gensyms (f p)
+      `(let ((,p (concatenate 'string ,path ".html")))
+         (with-open-file (,f (f:resource ,p :blag)
+                             :direction :output
+                             :if-exists :supersede)
+           (with-html-output (,f nil :prologue t :indent t)
+             (:html :lang "en"
+                    (html-header ,f ,page-title)
 
-                      (:body :class "backPic" :style (inline-css '(:color black))
+                    (:body :class "backPic" :style (inline-css '(:color black))
 
-                             (page-header ,f) ;; is this supposed to be f or html-stream? does it matter?
+                           (page-header ,f) ;; is this supposed to be f or html-stream? does it matter?
 
-                             ,@body))))
-           (tidy ,path))))))
+                           ,@body))))
+         (tidy ,p)))))

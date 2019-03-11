@@ -3,7 +3,7 @@
 (declaim (optimize (speed 0) (safety 0) (space 0) (debug 3)))
 
 (defun index ()
-  (with-boilerplate ("index")
+  (with-boilerplate ("index" "Index")
     (:div :class "row justify-content-center col-md-12"
           (:div :class "card col-md-8 rounded-0" :style (inline-css '(:border "5px solid #AC885E" :padding 1% :margin 1%))
                 (loop :for post :in '(("Fusion Reactor" "#2" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")

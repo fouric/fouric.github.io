@@ -41,9 +41,9 @@
 (defun tidy (path)
   (trivial-shell:shell-command (concatenate 'string "tidy -imq -w 0 " (namestring (f:resource path :blag)))))
 
-(defmacro with-boilerplate ((path) &body body)
+(defmacro with-boilerplate ((path page-title) &body body)
   (let ((path (concatenate 'string path ".html")))
-    (a:once-only (path)
+    (a:once-only (path page-title)
       (a:with-gensyms (f)
         `(progn
            (with-open-file (,f (f:resource ,path :blag)
@@ -51,7 +51,7 @@
                                :if-exists :supersede)
              (with-html-output (,f nil :prologue t :indent t)
                (:html :lang "en"
-                      (html-header ,f "Index")
+                      (html-header ,f ,page-title)
 
                       (:body :class "backPic" :style (inline-css '(:color black))
 

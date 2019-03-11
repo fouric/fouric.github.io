@@ -4,4 +4,5 @@
   (:export
    #:links
    #:index
+   #:post
    #:generate))

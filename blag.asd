@@ -20,4 +20,5 @@
                (:file "common")
                (:file "links")
                (:file "index")
+               (:file "post")
                (:file "generate")))

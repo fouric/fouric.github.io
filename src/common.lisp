@@ -37,3 +37,25 @@
             :href "style.css")
      (:meta :name "description" :content "fouric's blog")
      (:title (str (format nil "~a | Slightly Preferable to the Alternative" page-title))))))
+
+(defun tidy (path)
+  (trivial-shell:shell-command (concatenate 'string "tidy -imq -w 0 " (namestring (f:resource path :blag)))))
+
+(defmacro with-boilerplate ((path) &body body)
+  (let ((path (concatenate 'string path ".html")))
+    (a:once-only (path)
+      (a:with-gensyms (f)
+        `(progn
+           (with-open-file (,f (f:resource ,path :blag)
+                               :direction :output
+                               :if-exists :supersede)
+             (with-html-output (,f nil :prologue t :indent t)
+               (:html :lang "en"
+                      (html-header ,f "Index")
+
+                      (:body :class "backPic" :style (inline-css '(:color black))
+
+                             (page-header ,f) ;; is this supposed to be f or html-stream? does it matter?
+
+                             ,@body))))
+           (tidy ,path))))))

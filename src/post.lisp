@@ -11,6 +11,6 @@
                       (:h1 (str title))
                       (:em (str (multiple-value-bind (s m h dom mon y) (decode-universal-time (f:unix-to-universal-time epoch))
                                   (declare (ignore s m h))
-                                  (format nil "Posted on ~a-~a-~a" y mon dom))))
+                                  (format nil "Posted on ~d-~2,'0d-~2,'0d" y mon dom))))
                       (:hr)
                       (str (markdown.cl:parse content)))))))

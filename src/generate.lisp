@@ -3,7 +3,7 @@
 (declaim (optimize (speed 0) (safety 0) (space 0) (debug 3)))
 
 (defun generate ()
-  (let* ((post-files (uiop:directory-files (fouric:resource "post-contents/" :blag)))
+  (let* ((post-files (nreverse (uiop:directory-files (fouric:resource "post-contents/" :blag))))
          (posts
            (loop :for pathspec :in post-files :collect
              (let* ((basename (file-namestring pathspec))

@@ -9,3 +9,9 @@ Check out https://github.com/fouric/fouric.github.io/blob/master/src/index.lisp 
 ## deficiencies
 
 Doesn't handle paths correctly/at all - links to assets and pages are hardcoded.
+
+## todo
+
+- Add links to previous and next articles
+- Implement proper path handling
+- Order posts by reading and parsing timestamp, not by file order

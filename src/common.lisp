@@ -34,7 +34,7 @@
             :integrity "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             :crossorigin "anonymous")
      (:link :rel "stylesheet"
-            :href "https://fouric.github.io/style.css")
+            :href "https://fouric.github.io/static/style.css")
      (:meta :name "description" :content "fouric's blog")
      (:title (str (format nil "~a | Slightly Preferable to the Alternative" page-title))))))
 

@@ -19,10 +19,10 @@
      (:div :class "row justify-content-center col-md-12"
            (:div :class "card col-md-8" :style (inline-css '(:background-color transparent))
                  (:div :class "links"
-                       (loop :for label/url :in '(("Index" "index.html")
+                       (loop :for label/url :in '(("Index" "https://fouric.github.io/index.html")
                                                   ("About" "#1")
                                                   ("Contact" "#1")
-                                                  ("Links" "links.html"))
+                                                  ("Links" "https://fouric.github.io/links.html"))
                              :do (htm (:a :href (second label/url) :class "toplink" (str (first label/url)))))))))))
 
 (defun html-header (stream page-title)
@@ -34,7 +34,7 @@
             :integrity "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             :crossorigin "anonymous")
      (:link :rel "stylesheet"
-            :href "style.css")
+            :href "https://fouric.github.io/style.css")
      (:meta :name "description" :content "fouric's blog")
      (:title (str (format nil "~a | Slightly Preferable to the Alternative" page-title))))))
 

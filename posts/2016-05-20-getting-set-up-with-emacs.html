@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.2.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fouric.github.io/static/style.css">
+  <meta name="description" content="fouric's blog">
+  <title>Getting set up with Emacs, SLIME, and Evil | Slightly Preferable to the Alternative</title>
+</head>
+<body class="backPic" style="color: black;">
+  <div>
+    <div class="d-flex p-4" style="background-color: transparent;"></div>
+    <div class="row justify-content-center col-md-12">
+      <p class="display-4 text-center col-md-8" style="font-family: mono; background-color: transparent; margin: 0 0 3% 0;"><b class="text-white chalk">Slightly Preferable to the Alternative</b></p>
+    </div>
+    <div class="row justify-content-center col-md-12">
+      <div class="card col-md-8" style="background-color: transparent;">
+        <div class="links">
+          <a href="https://fouric.github.io/index.html" class="toplink">Index</a> <a href="#1" class="toplink">About</a> <a href="#1" class="toplink">Contact</a> <a href="https://fouric.github.io/links.html" class="toplink">Links</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center col-md-12">
+    <div class="card col-md-9 rounded-0" style="border: 5px solid #AC885E; padding: 1%; margin: 1%;">
+      <div class="card helvetica marg2">
+        <h1>Getting set up with Emacs, SLIME, and Evil</h1><em>Posted on 2016-5-20</em>
+        <hr>
+        <h2>Overview</h2>
+        <p>If you read the previous post about getting set up to hack on Lisp, and kept going, then you might be interested in migrating from Vim to Emacs and SLIME. Why? Because Emacs + SLIME provide a much more "Lispy" hacking experience that allows you write more code more quickly and with more fun. Also, if you use the Evil-mode extension for Emacs, then you don't have to learn an entirely new editing paradigm; you can continue to use the Vim keybindings that you know and (hopefully) love.</p>
+        <h2>What are these things?</h2>
+        <p><a href="http://www.gnu.org/software/emacs/index.html">Emacs</a> is an IDE written in a Lisp called Emacs Lisp (the code is a small amount of C that implements the Emacs Lisp compiler and a few functions that need to be fast, and then the rest is Emacs Lisp) that includes stuff like an IRC client, web browser, RSS feed reader, and psychoanalyst (yes, really, <code>M-x doctor RET</code>). Emacs is <em>extremely</em> powerful and customizable, and can be configured to do basically anything that Vim can, plus more. <a href="https://common-lisp.net/project/slime/">SLIME</a> (Superior Lisp Interaction Mode for Emacs) is an extension for Emacs that allows you to have a running Lisp REPL in Emacs. With SLIME, you can compile code from a file and run it in the REPL, compile and test individual functions, define functions in the REPL that can then be used in your code, handle conditions and debug, profile, and analyze you code (and data!), and more. <a href="https://www.emacswiki.org/emacs/Evil">Evil</a> (Extensible VI Layer for emacs) is an extension for Emacs that gives you Vim keybindings and functionality. I personally prefer Vim's modal interface over whatever Emacs has, so this is one of the first things that I install on my Emacs. You don't have to install this if you don't want to.</p>
+        <h2>Why should I use Emacs?</h2>
+        <p>It'll pay off later. Emacs provides much more room for expansion than Vim does, meaning that it'll be significantly longer until you get fed up with the constraints of your editor and go off to write your own (or maybe that's just me). Additionally, Emacs + SLIME gives you a <em>much</em> better Lisp development environment than what Vim is currently capable of, and there are more extensions (such as Paredit) that make you even more efficient.</p>
+        <h2>Assumption</h2>
+        <p>In this guide, I'm going to assume that you are either (1) using Linux on your own machine or (2) connecting to a CAT machine. If you are using Windows, I would recommend that you do the latter, as I don't know enough about getting Emacs to work on Windows to feel safe giving instructions on it.</p>
+        <h2>Getting Emacs</h2>
+        <p>If you're on your own machine, then you will need to install the <code>emacs-24</code> package. If you're on a CAT machine, then chances are that it's already installed thanks to nightfly++. Running <code>emacs</code> should be all you need to start it up.</p>
+        <p>Because I consider GUI menus to be a waste of screen space, then I would recommend editing your <code>.emacs</code> file (with Vim, of course) to include the following:</p>
+        <pre><code>(menu-bar-mode 0)
+(if (fboundp 'tool-bar-mode)
+  (tool-bar-mode 0))
+(if (fboundp 'scroll-bar-mode)
+  (scroll-bar-mode 0))</code></pre>
+        <p>These will get rid of the menu bar, the tool bar (which only appears if you're using the GUI), and the scrollbars (which <em>also</em> only appear if you're using the GUI; that's what the <code>(if (fboundp ...</code> stuff is for, it makes sure that you're actually running in GUI mode before trying to turn off a GUI-mode-only feature). Quit Emacs using <code>C-x C-c</code>, restart, and all of those things should be gone.</p>
+        <p>You don't know what that cryptic string means? Welcome to Emacs' keychord notation. <code>C-x C-c</code> means "press x while holding down control, then press c while holding down control". <code>C-S-x M-b RET</code> means "press x while holding down control and shift, then press b while holding down meta, then press enter (RETurn)". Emacs uses "meta" to mean "alt" due to the design of the <a href="http://xahlee.info/kbd/keyboard_hardware_and_key_choices.html%3CPaste%3E">Lisp Machine keyboards</a>. If you mess up on a chord (or anything, really), then just press <code>C-g</code> ("press g while holding control") to quit.</p>
+        <h2>Installing Evil</h2>
+        <p>Let's install Evil <em>first</em> so that if you end up editing stuff with Emacs accidentally, you'll have a semi-familiar environment that you can use. Here are the instructions, copied straight from <a href="https://www.emacswiki.org/emacs/Evil">the Evil homepage</a>: start by adding this to your <code>.emacs</code>:</p>
+        <pre><code>(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(package-initialize)</code></pre>
+        <p>Then you can either restart Emacs OR <code>M-x load-file RET ~/.emacs RET</code> (which will load the given Emacs Lisp file, in this case your main config file). Then:</p>
+        <pre><code>M-x package-refresh-contents
+M-x package-install RET evil</code></pre>
+        <p>(you should be hitting enter/return at the end of each line) Now, at this point, you should be able to do <code>M-x evil-mode</code> to start Evil, and then be able to move around with hjkl and all that jazz. Good job! Now we just need to tell Emacs to start Evil every time. Edit your .emacs (at the end, preferrably, like with everything else):</p>
+        <pre><code>(require 'evil)
+(evil-mode 1)</code></pre>
+        <p>Use <code>:q!</code> to quit Emacs and restart, or just <code>M-x load-file RET ~/.emacs</code>, and you should (still) have Evil working.</p>
+        <h2>Installing SLIME</h2>
+        <p>Now we get to the fun part, installing SLIME. Well, technically, the fun part is <em>using</em> SLIME, but close enough. Open up SBCL for a second:</p>
+        <pre><code>(ql:quickload :quicklisp-slime-helper)</code></pre>
+        <p>Wait for Quicklisp to do it's thing, then append the following to your <code>.emacs</code>:</p>
+        <pre><code>(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; Replace "sbcl" with the path to your implementation
+(setq inferior-lisp-program "sbcl")</code></pre>
+        <p>Now back to Emacs:</p>
+        <pre><code>M-x load-file RET ~/.emacs
+M-x slime</code></pre>
+        <p>If everything works, then you should a SBCL prompt in the bottom half of your Emacs window, waiting for you to do something. Try executing something trivial like <code>(+ 1 2)</code> to make sure it works. If it does, time to celebrate!</p>
+        <h2>Handy shortcuts</h2>
+        <pre><code>M-x slime        ; start slime
+C-x 0        ; delete a window (like a split in vim)
+C-x &lt;left&gt;        ; go back one buffer
+C-x &lt;right&gt;        ; go forward one buffer
+C-x b BUFFERNAME    ; switch to the buffer with the given name
+, sayoonara        ; quit SLIME
+C-c C-k        ; compile and load an entire Lisp file
+C-c C-c        ; compile whatever Lisp function your cursor is on
+C-c C-z        ; switch from your current Lisp file to the SLIME buffer
+C-x o        ; switch to the other window
+C-h t        ; Emacs tutorial
+C-h k CHORD        ; describe what a particular key chord does
+C-h f FUNCTION    ; describe what a particular Emacs Lisp function does
+C-h b        ; list all keybindings for the current combination of major and minor modes</code></pre>
+        <p>At this point, you should be ready to <em>begin</em> hacking with Emacs, Evil, and SLIME. You are probably going to have a ton of questions, though. Please ask, that's what I'm here for! Additionally, <code>M-x package-install RET rainbow-delimiters RET M-x rainbow-delimiters-mode RET</code></p>
+        <p>Good luck, have fun!</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

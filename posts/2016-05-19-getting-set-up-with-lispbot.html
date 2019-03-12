@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.2.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fouric.github.io/static/style.css">
+  <meta name="description" content="fouric's blog">
+  <title>Getting Set Up With Lispbot | Slightly Preferable to the Alternative</title>
+</head>
+<body class="backPic" style="color: black;">
+  <div>
+    <div class="d-flex p-4" style="background-color: transparent;"></div>
+    <div class="row justify-content-center col-md-12">
+      <p class="display-4 text-center col-md-8" style="font-family: mono; background-color: transparent; margin: 0 0 3% 0;"><b class="text-white chalk">Slightly Preferable to the Alternative</b></p>
+    </div>
+    <div class="row justify-content-center col-md-12">
+      <div class="card col-md-8" style="background-color: transparent;">
+        <div class="links">
+          <a href="https://fouric.github.io/index.html" class="toplink">Index</a> <a href="#1" class="toplink">About</a> <a href="#1" class="toplink">Contact</a> <a href="https://fouric.github.io/links.html" class="toplink">Links</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center col-md-12">
+    <div class="card col-md-9 rounded-0" style="border: 5px solid #AC885E; padding: 1%; margin: 1%;">
+      <div class="card helvetica marg2">
+        <h1>Getting Set Up With Lispbot</h1><em>Posted on 2016-5-19</em>
+        <hr>
+        <h2>Overview</h2>
+        <p>This post is merely a step-by-step set of instructions to get set up with hacking on <a href="https://github.com/fouric/lispbot">Lispbot</a> with Vim and SBCL. If you aren't attending one of my CAT Lisp workshops, then this might not be very helpful for you. You can give it a shot and see if it works for you, though!</p>
+        <h2>Getting SBCL and Quicklisp</h2>
+        <p>Before we even <em>think</em> of hacking up some wicked Lisp parens, we need to get our mitts on a copy of SBCL that is new enough that it will work with Quicklisp. Then we'll get Quicklisp. What's that, you say? You don't know what either of those things are? SBCL is a Lisp compiler, and Quicklisp is a package manager (Lisp calls them "systems") for Common Lisp. User: Educated.</p>
+        <pre><code>wget http://downloads.sourceforge.net/project/sbcl/sbcl/1.3.5/sbcl-1.3.5-x86-64-linux-binary.tar.bz2
+tar xjvf sbcl-1.3.5-x86-64-linux-binary.tar.bz2
+mv sbcl-1.3.5-x86-64-linux sbcl
+cd sbcl
+./run-sbcl.sh</code></pre>
+        <p>At this point, you should be greeted greeted with an <em>extremely</em> minimalist REPL (Read-Evaluate-Print-Loop, aka an interactive shell): a single asterisk.</p>
+        <pre><code>*</code></pre>
+        <p>Great! You got SBCL to work. If you do <em>not</em> see the above, then please wave your hand in the air like a madpark until I see you and check out what the heck you messed up. If everything looks good, then type in <code>(quit)</code> (WITH the parens, this is Lisp after all) and hit enter, we have things to do.</p>
+        <p>At this point, I would highly recommend editing your .bashrc to include an alias to your SBCL binary:</p>
+        <pre><code>alias sbcl="~/sbcl/run-sbcl.sh"</code></pre>
+        <p>Done? Cool. Source your <code>.bashrc</code> (<code>source ~/.bashrc</code>) so that you can actually use the alias. Let's get Quicklisp and then use that to install some basic line-editing stuff in this sucker:</p>
+        <pre><code>wget https://beta.quicklisp.org/quicklisp.lisp
+sbcl --load quicklisp.lisp
+(quicklisp-quickstart:install)
+(ql:add-to-init-file)</code></pre>
+        <p>Now, while the third command actually installs Quicklisp on your system, the fourth is important. It causes SBCL to automatically load Quicklisp every time it starts up, which is <em>definitely</em> something that you want. Finally, if you want to test to make sure that Quicklisp installed properly, then quit SBCL (<code>(quit)</code>), restart it, and run <code>(ql:update-all-dists)</code> or something. If Steel Bank freaks out, something broke, blame stenlai. Otherwise, you should be good to go.</p>
+        <h2>Installing Linedit</h2>
+        <p>You might have noticed at this point that SBCL has zero line-editing features. Actually zero. You get backspace and that's it, no editing anything in the middle of your line for <em>you</em>!</p>
+        <p>Luckily, there is a quick fix, called <code>linedit</code>. It's a Quicklisp system. Ah, so now you see why we rushed to get the thing set up as soon as possible. All you need to do is <code>quickload</code> it:</p>
+        <pre><code>(ql:quickload :linedit)</code></pre>
+        <p>Then quit SBCL and add the following lines to your <code>.sbclrc</code>:</p>
+        <pre><code>;;; Check for --no-linedit command-line option.
+(if (member "--no-linedit" sb-ext:*posix-argv* :test 'equal)
+  (setf sb-ext:*posix-argv*
+    (remove "--no-linedit" sb-ext:*posix-argv* :test 'equal))
+  (when (interactive-stream-p *terminal-io*)
+    (require :sb-aclrepl)
+    (require :linedit)
+    (funcall (intern "INSTALL-REPL" :linedit)
+             :wrap-current t
+             :eof-quits t
+             :history "~/.linedit_history")))</code></pre>
+        <p>Restart SBCL, and you should have a fancier prompt, as well as the ability to do basic stuff such as invoking previous commands. Yay! (the web site for Linedit is http://www.cliki.net/linedit by the way)</p>
+        <h2>Getting Lispbot</h2>
+        <p>At this point, you should be ready to clone <code>lispbot</code> and begin hacking on it. This should be easy enough:</p>
+        <pre><code>cd ~
+git clone https://github.com/fouric/lispbot
+cd lispbot
+echo "(:key "FOO")" &gt; auth.dat
+sbcl
+(load "lispbot.lisp")
+(lispbot:run "#bar")</code></pre>
+        <p>(you'll probably want to change "#bar" to be whatever channel you want the bot to join, and FOO to be the chankey, if any)</p>
+        <p>At this point, Lispbot should join the given channel with a partially-randomized nick. Find your bot and go have a chat with it! The default bot accepts the "source", "hello", and "drop" commands. Give it a shot!</p>
+        <h2>Now We Do Things</h2>
+        <p>Now you get to hack on your bot! At this point, you should start looking through the source code of the bot and trying to figure out what stuff does. The <a href="http://www.lispworks.com/documentation/HyperSpec/Front/X_Master.htm">Common Lisp Hyperspec</a> is <em>the</em> gold standard for this stuff, but I'm (1) closer and (2) louder, and so more people can learn at once. Please ask questions! I am <em>intentionally</em> stopping this guide here because I want you to do so. Don't be afraid to break things, you can always <code>git reset --hard HEAD</code> (did I get that right squid) if you really can't fix it. Happy hacking!</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

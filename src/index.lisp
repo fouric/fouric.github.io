@@ -15,4 +15,4 @@
                                        (:div :class "card"
                                              (:h3 :class "card-title"
                                                   (:b (str title)))
-                                             (:p (str summary)))))))))))
+                                             (:p :style (inline-css '(:margin-bottom 0)) (str summary)))))))))))

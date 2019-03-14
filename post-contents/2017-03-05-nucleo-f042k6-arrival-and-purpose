@@ -1,9 +1,8 @@
----
-layout: post
-title:  "Nucleo-F042K6 Arrival and Purpose"
-date:   2017-03-05 00:16:57 -0700
-categories: update nucleo
----
+(
+:title "Nucleo-F042K6 Arrival and Purpose"
+:summary "i got a cute little microcontroller, lemme talk about what i'll plan to (but not actually) do with it"
+:epoch 1488701817
+:content "
 
 Project Introduction
 --------------------
@@ -23,7 +22,7 @@ Unfortunately, while OpenOCD appeared to be able to *debug* code with the Flyswa
 
 At that point, I gave up on the BeagleBone Black. I knew that there were much better baremetal development environments that I could get set up with, and I was tired of being told by various internet denizens that I should just use CCS. I knew that one of the CS students at PSU, [RJ Russell](https://github.com/RJ-Russell) had been working on [writing an operating system in Rust](https://github.com/AltOS-Rust/altos-rust) for a little microcontroller with an ARM core, so I asked him about it. He then introduced me to the [Nucleo-F042K6](https://developer.mbed.org/platforms/ST-Nucleo-F042K6/):
 
-![obligatory picture of the thing](https://raw.githubusercontent.com/fouric/fouric.github.io/master/images/nucleo/nucleo-1.jpg)
+![obligatory picture of the thing](../assets/nucleo-1.jpg)
 
 The development cycle was all that I wanted: programming, flashing and debugging all from a command-line interface with a short learning curve. The hardware was even better, with a $12-ish price tag and integrated debugging and serial connections. I bought one instantly and waited an agonizing week for it to arrive.
 
@@ -39,3 +38,4 @@ And as for you, dear reader, you may very well learn something yourself. I inten
 Unfortunately, I won't be able to do *anything* with the Nucleo until the term ends; Portland State's engineering program is threatening to crush me if I take my focus away from it for more than a second. The term ends in three weeks, at which point I'll be free to start loading code onto the Nucleo.
 
 Until then, my friends...
+")

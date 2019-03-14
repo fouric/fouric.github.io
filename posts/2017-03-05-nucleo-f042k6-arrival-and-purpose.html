@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.2.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fouric.github.io/static/style.css">
+  <meta name="description" content="fouric's blog">
+  <title>Nucleo-F042K6 Arrival and Purpose | Slightly Preferable to the Alternative</title>
+</head>
+<body class="backPic" style="color: black;">
+  <div>
+    <div class="d-flex p-4" style="background-color: transparent;"></div>
+    <div class="row justify-content-center col-md-12">
+      <p class="display-4 text-center col-md-8" style="font-family: mono; background-color: transparent; margin: 0 0 3% 0;"><b class="text-white chalk">Slightly Preferable to the Alternative</b></p>
+    </div>
+    <div class="row justify-content-center col-md-12">
+      <div class="card col-md-8" style="background-color: transparent;">
+        <div class="links">
+          <a href="https://fouric.github.io/index.html" class="toplink">Index</a> <a href="#1" class="toplink">About</a> <a href="#1" class="toplink">Contact</a> <a href="https://fouric.github.io/links.html" class="toplink">Links</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center col-md-12">
+    <div class="card col-md-9 rounded-0" style="border: 5px solid #AC885E; padding: 1%; margin: 1%;">
+      <div class="card helvetica marg2">
+        <h1>Nucleo-F042K6 Arrival and Purpose</h1><em>Posted on 2017-03-05</em>
+        <hr>
+        <h2>Project Introduction</h2>
+        <p>This is one of a series of posts in which I will describe my experiences writing bare-metal code for the Nucleo-F042K6 microcontroller. My goal is to write a small programming language or operating system for the board as a way of sharpening my low-level programming skills.</p>
+        <h2>Background & Rationale</h2>
+        <p>As part of my plan to design and build a computer from the CPU design to the OS userspace, I've been looking into learning assembly and systems programming. My interest in these fields was redoubled when I took <a href="https://www.pdx.edu/academic-affairs/sites/www.pdx.edu.academic-affairs/files/PSU%20Bulletin%20Vol-2.pdf">ECE371</a> (page 151) during the fall term of 2016. Taught by the energetic Doug Hall, Microprocessors 1 helped me get over my fear of assembly, made me comfortable with interrupts, and gave me a much clearer idea of exactly how one would begin to write an operating system.</p>
+        <p>The primary focus of ECE371 was embedded development. Instead of running assembly in a hosted x86 environment, we wrote baremetal code that ran on the BeagleBone Blacks in PSU's Tektronix lab. Because we had no OS with which we could load our code onto the BBB's, we used a JTAG debugger from TI that interfaced with an Eclipse-based software package called CodeComposer Studio. CCS was very prone to crashing, both on my laptop and on the Teklab machines, and so I soon began looking for ways to program the BBB from the command line.</p>
+        <p>After a bit of searching, I found an open-source piece of software called <a href="http://openocd.org/">OpenOCD</a>. Hypothetically, I could connect TI's JTAG debugger to a computer running an OpenOCD server, connect to the server using either telnet or GDB, and upload code to the BBB and debug it. After unsuccessfully fiddling with it for a while, I found a forum post online that claimed that OpenOCD didn't support that debugger. After a bit of poking around, I found <a href="http://www.tincantools.com/JTAG/Flyswatter2.html">Tin Can Tools' Flyswatter2</a>, which explicitly advertised support for OpenOCD. I ordered one, and it arrived a few weeks later.</p>
+        <p>Unfortunately, while OpenOCD appeared to be able to <em>debug</em> code with the Flyswatter2, I was not ever able to <em>flash</em> code using it. In CCS, hitting a single button took a binary stored on your hard disk, uploaded it to the BBB's RAM, reset the core (or maybe did those things in the opposite order, who knows), and ran the code. With OpenOCD and the Flyswatter2, the only way that I was able to do anything <em>close</em> to this was by configuring the BBB to network boot by pulling an image from my development machine. This was an ugly and inefficient setup, and it never completely worked right; I wasn't able to actually debug code even after uploading it.</p>
+        <p>At that point, I gave up on the BeagleBone Black. I knew that there were much better baremetal development environments that I could get set up with, and I was tired of being told by various internet denizens that I should just use CCS. I knew that one of the CS students at PSU, <a href="https://github.com/RJ-Russell">RJ Russell</a> had been working on <a href="https://github.com/AltOS-Rust/altos-rust">writing an operating system in Rust</a> for a little microcontroller with an ARM core, so I asked him about it. He then introduced me to the <a href="https://developer.mbed.org/platforms/ST-Nucleo-F042K6/">Nucleo-F042K6</a>:</p>
+        <p><img src="../assets/nucleo-1.jpg" alt="obligatory picture of the thing"></p>
+        <p>The development cycle was all that I wanted: programming, flashing and debugging all from a command-line interface with a short learning curve. The hardware was even better, with a $12-ish price tag and integrated debugging and serial connections. I bought one instantly and waited an agonizing week for it to arrive.</p>
+        <p>Now it's here, and the real fun begins...</p>
+        <h2>Goals for the Nucleo</h2>
+        <p>My main use for the Nucleo is learning. With it, I can write and debug baremetal code very very quickly, without the use of an emulator, and with the potential to affect the outside world. 6 KB of SRAM is not a lot, but it's enough to hold a tiny Forth or maybe a small audio synthesizer. This is a device that I can use to learn about assembly, linking, loading, memory maps, interrupts, timers, I2C, UART, operating system and programming language design, and whatever else I can fit into six thousand bytes.</p>
+        <p>And as for you, dear reader, you may very well learn something yourself. I intend to document everything I do with this little board (whose appeal as a tiny computer is only surpassed by that of the <a href="http://www.microchip.com/wwwproducts/en/ATTINY4">ATtiny4</a>), in hopes that you might benefit from my adventures.</p>
+        <p>Unfortunately, I won't be able to do <em>anything</em> with the Nucleo until the term ends; Portland State's engineering program is threatening to crush me if I take my focus away from it for more than a second. The term ends in three weeks, at which point I'll be free to start loading code onto the Nucleo.</p>
+        <p>Until then, my friends...</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

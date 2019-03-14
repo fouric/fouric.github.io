@@ -1,7 +1,5 @@
 (in-package :blag)
 
-(declaim (optimize (speed 0) (safety 0) (space 0) (debug 3)))
-
 (eval-when (:compile-toplevel)
   (setf (html-mode) :html5
         *attribute-quote-char* #\"))

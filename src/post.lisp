@@ -1,7 +1,5 @@
 (in-package :blag)
 
-(declaim (optimize (speed 0) (safety 0) (space 0) (debug 3)))
-
 (defun post (title path content epoch)
   "generate HTML for a post with the given TITLE (as a text string) and CONTENT (as Markdown) and tidy and write to PATH.html"
   (with-boilerplate (path title)

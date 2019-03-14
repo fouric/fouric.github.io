@@ -1,7 +1,5 @@
 (in-package :blag)
 
-(declaim (optimize (speed 0) (safety 0) (space 0) (debug 3)))
-
 (defun index (post-summaries)
   "takes a list of summaries, where each summary is a list (TITLE BASEPATH SUMMARY)"
   (with-boilerplate ("index" "Index")

@@ -1,7 +1,5 @@
 (in-package :blag)
 
-(declaim (optimize (speed 0) (safety 0) (space 0) (debug 3)))
-
 (defun links ()
   (with-boilerplate ("links" "Links")
     (:div :class "row justify-content-center col-md-12"

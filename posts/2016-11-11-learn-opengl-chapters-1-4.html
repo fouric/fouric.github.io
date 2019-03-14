@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.2.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fouric.github.io/static/style.css">
+  <meta name="description" content="fouric's blog">
+  <title>Learn OpenGL: Chapters 1-4 | Slightly Preferable to the Alternative</title>
+</head>
+<body class="backPic" style="color: black;">
+  <div>
+    <div class="d-flex p-4" style="background-color: transparent;"></div>
+    <div class="row justify-content-center col-md-12">
+      <p class="display-4 text-center col-md-8" style="font-family: mono; background-color: transparent; margin: 0 0 3% 0;"><b class="text-white chalk">Slightly Preferable to the Alternative</b></p>
+    </div>
+    <div class="row justify-content-center col-md-12">
+      <div class="card col-md-8" style="background-color: transparent;">
+        <div class="links">
+          <a href="https://fouric.github.io/index.html" class="toplink">Index</a> <a href="#1" class="toplink">About</a> <a href="#1" class="toplink">Contact</a> <a href="https://fouric.github.io/links.html" class="toplink">Links</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center col-md-12">
+    <div class="card col-md-9 rounded-0" style="border: 5px solid #AC885E; padding: 1%; margin: 1%;">
+      <div class="card helvetica marg2">
+        <h1>Learn OpenGL: Chapters 1-4</h1><em>Posted on 2016-11-11</em>
+        <hr>
+        <p>This post will document the Common Lisp porting of <a href="http://learnopengl.com/">Learn OpenGL</a> chapters 1 ("Introduction"), 2 ("OpenGL"), 3 ("Creating a Window"), and 4 ("Hello Window").</p>
+        <h2>Chapter 1: Introduction</h2>
+        <p>This chapter is purely informative. No porting necessary.</p>
+        <h2>Chapter 2: OpenGL</h2>
+        <p>Although much of the friction in the tutorials are due to the way that C++ works, note that <code>cl-opengl</code> still has some of that friction (it's not a very thick wrapper). We still have to create, bind, unbind, and delete objects, and do manual cleanup after the OpenGL functions. As I work my way through the tutorials, I will try to write macros to make our OpenGL experience a bit more Lispy. For instance, look at the (generic - we'll introduce the actual code later) object-creation code in Common Lisp form:</p>
+        <pre><code>(let ((object (gl:gen-object)))
+  (gl:bind-object :window-target object)
+  (gl:set-object-option :window-target :window-width 800)
+  (gl:set-object-option :window-target :window-height 600)
+  (gl:bind-object :window-target object))</code></pre>
+        <p>It turns out that we have to bind and unbind a lot of objects in OpenGL. This sounds like a process that we can make easier using a macro:</p>
+        <pre><code>(defmacro with-bound-object ((object target) &amp;body body)
+  (alexandria:once-only (target)
+    `(multiple-value-prog1
+         (progn
+           (gl:bind-object ,target ,object)
+           ,@body)
+       (gl:bind-object ,target 0))))</code></pre>
+        <p>Now we can write</p>
+        <pre><code>(let ((object (gl:gen-object)))
+  (with-bound-object (object :window-target)
+    (gl:set-object-option :window-target :window-width 800)
+    (gl:set-object-option :window-target :window-height 600)))</code></pre>
+        <p>More concise? A bit. We shaved off a "line" at the expense of a bit of added nesting depth. The bigger gain is in our ability to, like <code>let</code>, cordon off a block of code as "a place where a thing is bound, with that thing bound nowhere else", instead of having to mentally mark off portions of a flat code space as having <code>:window-target</code> bound or unbound.</p>
+        <h2>Chapter 3: Creating a Window</h2>
+        <p>This entire chapter focuses on building and linking GLFW and GLEW. Because we're using <code>cl-sdl2</code> and <code>cl-opengl</code>, we have a much easier time. Run <code>(ql:quickload :sdl2)</code> and <code>(ql:quickload :cl-opengl)</code> and you <em>should</em> be good. If you're missing libraries and Quicklisp freaks out, try installing <code>libsdl2-dev</code> and making sure that you have some sort of graphics drivers for your system.</p>
+        <h2>Chapter 4: Hello Window</h2>
+        <p>Ah, here's where things get interesting. Here's the window and GLEW initialization code:</p>
+        <pre><code>glfwInit();
+glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
+if (window == nullptr) {
+    std::cout &lt;&lt; "Failed to create GLFW window" &lt;&lt; std::endl;
+    glfwTerminate();
+    return -1;
+}
+glfwMakeContextCurrent(window);
+glewExperimental = GL_TRUE;
+if (glewInit() != GLEW_OK) {
+    std::cout &lt;&lt; "Failed to initialize GLEW" &lt;&lt; std::endl;
+    return -1;</code></pre>
+        <pre><code>}</code></pre>
+        <p>We'll use cl-sdl2's wonderful <code>with-init</code> and <code>with-window</code> macros, as well as <code>gl-set-attrs</code> to hint at which version of OpenGL we want:</p>
+        <pre><code>(sdl2:with-init (:everything)
+  (sdl2:gl-set-attrs :context-major-version 3
+                     :context-minor-version 3
+                     :context-core-profile sdl2-ffi:+sdl-gl-context-profile-core+)
+  (sdl2:with-window (window :w 800 :h 600 :flags '(:opengl :resizable))
+    (sdl2:with-gl-context (context window)
+      (format t "opengl version: ~s~%" (gl:get-string :version))
+      (sdl2:gl-make-current window context)
+      ...)))</code></pre>
+        <p>(many thanks to axion on #lispgames for helping me figure out which flags <code>gl-set-attrs</code> wanted) This takes care of the SDL initialization code. Next, we set the OpenGL viewport size. In the tutorials, this is done with</p>
+        <p>int width, height; glfwGetFramebufferSize(window, &amp;width, &amp;height); glViewport(0, 0, width, height);</p>
+        <p><code>sdl2:get-window-size</code> returns multiple values on the stack instead of providing a cons cell or list, so we'll use <code>multiple-value-bind</code> to catch all of them:</p>
+        <pre><code>(multiple-value-bind (width height) (sdl2:get-window-size window)
+  (gl:viewport 0 0 width height))</code></pre>
+        <p>The tutorial then goes through some stuff with creating an empty window that OpenGL never touches. I want to skip straight to putting a nice color in that window. We set up our event loop using <code>sdl2:with-event-loop</code>:</p>
+        <pre><code>(sdl2:with-event-loop (:method :poll)
+  (:keyup (:keysym keysym)
+          (when (sdl2:scancode= (sdl2:scancode-value keysym) :scancode-escape)
+            (sdl2:push-event :quit)))
+  (:idle ()
+         (gl:clear-color 0.2 0.3 0.3 1.0)
+         (gl:clear :color-buffer)
+         (sdl2:gl-swap-window window))
+  (:quit ()
+         t))</code></pre>
+        <p>...and that's it! Compile and run, and you should see a window with a lovely dark-olive-gray color in it:</p>
+        <p><img src="https://github.com/fouric/fouric.github.io/raw/master/images/learn-opengl/chapter-4-final.png" alt="a window with an awesome color in it"></p>
+        <p>...and that's a wrap.</p>
+        <p>2018-09-07 update: rewrote <code>WITH-BOUND-OBJECT</code> using <code>ALEXANDRIA:ONCE-ONLY</code> to automatically gensym the <code>TARGET</code> argument and <code>MULTIPLE-VALUE-PROG1</code> to ensure that the values returned from the body were correctly returned from the macroexpansion.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

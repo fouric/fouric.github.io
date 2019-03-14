@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.2.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fouric.github.io/static/style.css">
+  <meta name="description" content="fouric's blog">
+  <title>WITH-DOT-ACCESSORS | Slightly Preferable to the Alternative</title>
+</head>
+<body class="backPic" style="color: black;">
+  <div>
+    <div class="d-flex p-4" style="background-color: transparent;"></div>
+    <div class="row justify-content-center col-md-12">
+      <p class="display-4 text-center col-md-8" style="font-family: mono; background-color: transparent; margin: 0 0 3% 0;"><b class="text-white chalk">Slightly Preferable to the Alternative</b></p>
+    </div>
+    <div class="row justify-content-center col-md-12">
+      <div class="card col-md-8" style="background-color: transparent;">
+        <div class="links">
+          <a href="https://fouric.github.io/index.html" class="toplink">Index</a> <a href="#1" class="toplink">About</a> <a href="#1" class="toplink">Contact</a> <a href="https://fouric.github.io/links.html" class="toplink">Links</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center col-md-12">
+    <div class="card col-md-9 rounded-0" style="border: 5px solid #AC885E; padding: 1%; margin: 1%;">
+      <div class="card helvetica marg2">
+        <h1>WITH-DOT-ACCESSORS</h1><em>Posted on 2016-11-01</em>
+        <hr>
+        <p>Several weeks ago, I decided that I wanted to give another shot at writing a little 2D real-time dungeoncrawler in Common Lisp. To do that, I needed some sort of collision engine. <a href="http://box2d.org/">Box2D</a> seemed like it was along the lines of what I wanted, given how uncomplex it seemed to be. Unfortunately, Box2D is written in C++, which <a href="https://github.com/rpav/cl-autowrap">cl-autowrap</a> appears to have trouble with in the general case. After a bit of poking, I came across <a href="https://github.com/dharmatech/box2d-lite">box2d-lite</a>, a Scheme port of an early version of Box2D written in C. Now, while I certainly don't have the time to port over any non-trivial C codebase to Common Lisp, I can certainly do a 1.7kloc Scheme library, and after <a href="https://github.com/SirHawbly">SirHawbly</a> agreed to help, the deal was sealed.</p>
+        <p>Right away, when was working through my first Scheme file (<a href="https://github.com/dharmatech/box2d-lite/blob/master/vec.sls">vec.sls</a>), I noticed that Scheme allows you to use C-like <code>foo.bar</code> syntax to access the <code>foo</code> field of a structure stored in a variable named <code>bar</code>, after making an assertion to the Scheme implementation that tells it what type of structure you're going to be accessing.</p>
+        <p>In Common Lisp, there is no such shortcut that you can take, partially because you can put periods in symbol names. Who's to say that <code>v.x</code> isn't simply a variable name instead of a structure member access?</p>
+        <p>Now, for a short piece of Scheme code like</p>
+        <pre><code>(* n v.y)</code></pre>
+        <p>the corresponding Common Lisp code is</p>
+        <pre><code>(* n (vec-y v))</code></pre>
+        <p>Not too bad. However, much of box2d-lite looks more like this:</p>
+        <pre><code>(define (vxv a b)
+  (is-vec a)
+  (is-vec b)
+  (- (* a.x b.y)
+     (* a.y b.x)))</code></pre>
+        <p>...which in Common Lisp looks like</p>
+        <pre><code>(defun vxv (a b)
+  (- (* (vec-x a) (vec-x b))
+     (* (vec-y a) (vec-x b))))</code></pre>
+        <p>Now imagine that your matrices are just structures with two vectors, so to get the "a" element of a 2x2 matrix, you have to do something along the lines of <code>(vec-x (mat-col1 m))</code>.</p>
+        <p>As you can imagine, this gets tiring quickly.</p>
+        <p>Eventually, I got fed up with the amount of mental effort I was having to exert to get a single member out of a matrix, so I wrote a macro, called <code>WITH-DOT-ACCESSORS</code>. You use it by providing it an alist of types and the variables that hold values of those types, and all it does it looks for symbols of form <code>FOO.BAR</code> and rewrites them to <code>(TYPE-BAR FOO)</code>, where TYPE is provided by the alist given at the beginning of the form. The invocation looks like</p>
+        <pre><code>(with-dot-accessors ((vec (v1 v2)))
+  (+ v1.x v2.y))</code></pre>
+        <p>and expands to</p>
+        <pre><code>(progn
+  (+ (vec-x v1) (vec-y v2)))</code></pre>
+        <p>Fragile? Yes. This can (and will) re-write function calls with periods in the names if you're not careful, causing compilation errors. However, it gets the job done, and given that it won't be in any user-facing code (that is, a user of <a href="https://github.com/fouric/boxed2d">boxed2d</a> won't have to touch it), it doesn't have to be very polished.</p>
+        <p>Currently, the code lives in <a href="https://github.com/fouric/boxed2d/blob/master/src/util/macros.lisp">macros.lisp</a>, although that might change in the future. Now I just need to start converting over all of the code that was written without it...</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

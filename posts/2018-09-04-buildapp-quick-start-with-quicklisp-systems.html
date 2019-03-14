@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.2.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fouric.github.io/static/style.css">
+  <meta name="description" content="fouric's blog">
+  <title>Buildapp Quick Start With Quicklisp Systems | Slightly Preferable to the Alternative</title>
+</head>
+<body class="backPic" style="color: black;">
+  <div>
+    <div class="d-flex p-4" style="background-color: transparent;"></div>
+    <div class="row justify-content-center col-md-12">
+      <p class="display-4 text-center col-md-8" style="font-family: mono; background-color: transparent; margin: 0 0 3% 0;"><b class="text-white chalk">Slightly Preferable to the Alternative</b></p>
+    </div>
+    <div class="row justify-content-center col-md-12">
+      <div class="card col-md-8" style="background-color: transparent;">
+        <div class="links">
+          <a href="https://fouric.github.io/index.html" class="toplink">Index</a> <a href="#1" class="toplink">About</a> <a href="#1" class="toplink">Contact</a> <a href="https://fouric.github.io/links.html" class="toplink">Links</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center col-md-12">
+    <div class="card col-md-9 rounded-0" style="border: 5px solid #AC885E; padding: 1%; margin: 1%;">
+      <div class="card helvetica marg2">
+        <h1>Buildapp Quick Start With Quicklisp Systems</h1><em>Posted on 2018-09-04</em>
+        <hr>
+        <p><a href="https://www.xach.com/lisp/buildapp/">Buildapp</a> is a wonderful little tool that Xach wrote to make the process of Common Lisp standalone executables slightly easier. Although the documentation is pretty good, I had a tiny bit of trouble (1) configuring it to work with Quicklisp systems and (2) creating a multicall binary for the first time, so I figured I might as well save one or two other people on the internet a tiny bit of work:</p>
+        <pre><code>buildapp --output ~/programming/bin/cl-multicall --asdf-tree ~/other-code/quicklisp/ --dispatched-entry /monolith:main --load-system monolith --dispatched-entry monolith/monolith:main --load-system graygoo --dispatched-entry graygoo/graygoo:main</code></pre>
+        <p>or, more generally,</p>
+        <pre><code>buildapp --output /path/to/multicall/binary 
+         --asdf-tree /path/to/quicklisp/ 
+         --dispatched-entry /default-system:default-main 
+         --load-system first-auxilary-system --dispatched-entry first-link-name/first-system-package:first-system-entrypoint 
+         --load-system second-auxilary-system --dispatched-entry second-link-name/second-system-package:second-system-entrypoint 
+         --load-system third-auxilary-system --dispatched-entry third-link-name/third-system-package:third-system-entrypoint</code></pre>
+        <p>at which point you create links <code>first-link-name</code>, <code>second-link-name</code>, and <code>third-link-name</code> that all point to <code>/path/to/multicall/binary</code>. Executing the <code>first-link-name</code> link will result in the <code>first-system-entrypoint</code> function in the <code>first-system-package</code> package being invoked, and so on.</p>
+        <p>Lessons learned: first, that unless you want to use <code>--asdf-path</code> on literally every Quicklisp system ever, you'll need to point <code>--asdf-tree</code> at your Quicklisp install, and second, that you need a default <code>--dispatched-entry</code> argument (with no link-name before the forward slash <code>/</code>) in order for the build procedure to properly work.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

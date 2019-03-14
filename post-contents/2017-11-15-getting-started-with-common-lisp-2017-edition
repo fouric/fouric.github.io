@@ -1,9 +1,8 @@
----
-layout: post
-title:  "Getting Started With Common Lisp - 2017 Edition"
-date:   2017-11-15 20:33:50 -0700
-categories: update lisp
----
+(
+:title "Getting Started With Common Lisp - 2017 Edition"
+:summary "another CL quickstart"
+:epoch 1510806830
+:content "
 
 A Short Introduction
 --------------------
@@ -22,7 +21,7 @@ Next, we want to get Quicklisp, so that we can easily install a bunch of other C
     wget https://beta.quicklisp.org/quicklisp.lisp
     sbcl --load quicklisp.lisp
 
-That second command will drop you into SBCL's REPL. Run the rest in there, treating `RET` as "hit the RETurn/enter key":
+That second command will drop you into SBCL's REPL. Run the rest in there, treating `RET` as \"hit the RETurn/enter key\":
 
     (quicklisp-quickstart:install)
     (ql:add-to-init-file)
@@ -34,16 +33,16 @@ That second command will drop you into SBCL's REPL. Run the rest in there, treat
 While we have now technically installed Quicklisp and Linedit, neither of them will load by default. Edit your `~/.sbclrc` and add the following at the end of the file:
 
     ;;; Check for --no-linedit command-line option.
-    (if (member "--no-linedit" sb-ext:*posix-argv* :test 'equal)
+    (if (member \"--no-linedit\" sb-ext:*posix-argv* :test 'equal)
       (setf sb-ext:*posix-argv*
-        (remove "--no-linedit" sb-ext:*posix-argv* :test 'equal))
+        (remove \"--no-linedit\" sb-ext:*posix-argv* :test 'equal))
       (when (interactive-stream-p *terminal-io*)
         (require :sb-aclrepl)
         (require :linedit)
-        (funcall (intern "INSTALL-REPL" :linedit)
+        (funcall (intern \"INSTALL-REPL\" :linedit)
                  :wrap-current t
                  :eof-quits t
-                 :history "~/.linedit_history")))
+                 :history \"~/.linedit_history\")))
 
 Now that we have SBCL and Quicklisp all configured, let's set up our editor, Spacemacs:
 
@@ -60,3 +59,4 @@ Next, edit your dotfile with `SPC f e d` (where `SPC` is the space bar). Remove 
 You should now have Spacemacs, SBCL, Quicklisp, Linedit, and SLIME set up. Launch Spacemacs using its Emacs base, run SBCL using `sbcl` if you just want a bare Common Lisp REPL, invoke Quicklisp from a REPL using `(ql:quickload :foo)` to install package `foo`, and launch slime using `, '` (comma then single-quote) in a `.lisp` file (or manually using `SPC SPC slime`) in Spacemacs.
 
 Happy hacking!
+")

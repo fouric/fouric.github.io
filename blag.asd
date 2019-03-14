@@ -14,7 +14,7 @@
   :description "CL system for generating blag"
 
   :serial t
-  :depends-on (:cl-who :fouric :cl-css :trivial-shell :alexandria :markdown.cl)
+  :depends-on (:cl-who :fouric :cl-css :trivial-shell :alexandria :markdown.cl :metabang-bind)
   :pathname "src"
   :components ((:file "package")
                (:file "common")

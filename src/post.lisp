@@ -7,7 +7,7 @@
           (:div :class "card col-md-9 rounded-0" :style (inline-css '(:border "5px solid #AC885E" :padding 1% :margin 1%))
                 (:div :class "card helvetica marg2"
                       (:h1 (str title))
-                      (:em (str (multiple-value-bind (s m h dom mon y) (decode-universal-time (f:unix-to-universal-time epoch))
+                      (:em (str (multiple-value-bind (s m h dom mon y) (decode-universal-time (s:unix-to-universal epoch))
                                   (declare (ignore s m h))
                                   (format nil "Posted on ~d-~2,'0d-~2,'0d" y mon dom))))
                       (:hr)

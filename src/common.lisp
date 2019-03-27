@@ -4,7 +4,7 @@
   (setf (html-mode) :html5
         *attribute-quote-char* #\"))
 
-(defun page-header (stream)
+(defun page-header (output-path stream)
   (with-html-output (s stream :indent t)
     (:div
      (:div :class "d-flex p-4" :style (inline-css '(:background-color transparent)))
@@ -17,13 +17,13 @@
      (:div :class "row justify-content-center col-md-12"
            (:div :class "card col-md-8" :style (inline-css '(:background-color transparent))
                  (:div :class "links"
-                       (loop :for label/url :in '(("Index" "https://fouric.github.io/index.html")
+                       (loop :for label/url :in `(("Index" "index.html")
                                                   ("About" "#1")
                                                   ("Contact" "#1")
-                                                  ("Links" "https://fouric.github.io/links.html"))
-                             :do (htm (:a :href (second label/url) :class "toplink" (str (first label/url)))))))))))
+                                                  ("Links" "links.html"))
+                             :do (htm (:a :href (reference-to-relpath output-path (second label/url)) :class "toplink" (str (first label/url)))))))))))
 
-(defun html-header (stream page-title)
+(defun html-header (output-path stream page-title)
   (with-html-output (s stream :indent t)
     (:head
      (:meta :charset "utf-8")
@@ -32,7 +32,7 @@
             :integrity "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             :crossorigin "anonymous")
      (:link :rel "stylesheet"
-            :href "https://fouric.github.io/static/style.css")
+            :href (reference-to-relpath output-path "static/style.css"))
      (:meta :name "description" :content "fouric's blog")
      (:title (str (format nil "~a | Slightly Preferable to the Alternative" page-title))))))
 
@@ -48,11 +48,17 @@
                              :if-exists :supersede)
            (with-html-output (,f nil :prologue t :indent t)
              (:html :lang "en"
-                    (html-header ,f ,page-title)
+                    (html-header ,p ,f ,page-title)
 
                     (:body :class "backPic" :style (inline-css '(:color black))
 
-                           (page-header ,f) ;; is this supposed to be f or html-stream? does it matter?
+                           (page-header ,p ,f) ;; is this supposed to be f or html-stream? does it matter?
 
                            ,@body))))
          (tidy ,p)))))
+
+(defun reference-to-relpath (reference relpath)
+  "solves a specific problem I have: how, given a reference point that's relative to a project root, and another relpath from the same root, to give the relative path from the reference to the relpath - e.g. given content/posts/foo.html and static/style.css, output ../../static/style.css"
+  (let* ((number-of-ups (1- (length (remove-if (lambda (str) (zerop (length str))) (split-sequence:split-sequence #\/ reference))))) ;; "stuff/posts/foo.html" would yield 2
+         (up-string (apply #'concatenate 'string (loop :for i :from 0 :to (1- number-of-ups) :collect "../"))))
+    (concatenate 'string up-string relpath)))

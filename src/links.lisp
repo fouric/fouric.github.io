@@ -1,7 +1,7 @@
 (in-package :blag)
 
 (defun links ()
-  (with-boilerplate ("links" "Links")
+  (with-boilerplate ( "links" "Links")
     (:div :class "row justify-content-center col-md-12"
           (:div :class "card col-md-9 rounded-0" :style (inline-css '(:border "5px solid #AC885E" :padding 1% :margin 1%))
                 (:div :class "card marg"

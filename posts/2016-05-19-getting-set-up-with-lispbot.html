@@ -4,7 +4,7 @@
   <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.2.0">
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://fouric.github.io/static/style.css">
+  <link rel="stylesheet" href="../static/style.css">
   <meta name="description" content="fouric's blog">
   <title>Getting Set Up With Lispbot | Slightly Preferable to the Alternative</title>
 </head>
@@ -17,7 +17,7 @@
     <div class="row justify-content-center col-md-12">
       <div class="card col-md-8" style="background-color: transparent;">
         <div class="links">
-          <a href="https://fouric.github.io/index.html" class="toplink">Index</a> <a href="#1" class="toplink">About</a> <a href="#1" class="toplink">Contact</a> <a href="https://fouric.github.io/links.html" class="toplink">Links</a>
+          <a href="../index.html" class="toplink">Index</a> <a href="../#1" class="toplink">About</a> <a href="../#1" class="toplink">Contact</a> <a href="../links.html" class="toplink">Links</a>
         </div>
       </div>
     </div>
@@ -62,7 +62,7 @@ sbcl --load quicklisp.lisp
     (funcall (intern "INSTALL-REPL" :linedit)
              :wrap-current t
              :eof-quits t
-             :history "~/.linedit_history")))</code></pre>
+             :history "~/.linedit&amp;lowbar;history")))</code></pre>
         <p>Restart SBCL, and you should have a fancier prompt, as well as the ability to do basic stuff such as invoking previous commands. Yay! (the web site for Linedit is http://www.cliki.net/linedit by the way)</p>
         <h2>Getting Lispbot</h2>
         <p>At this point, you should be ready to clone <code>lispbot</code> and begin hacking on it. This should be easy enough:</p>

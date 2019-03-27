@@ -4,7 +4,7 @@
   <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.2.0">
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://fouric.github.io/static/style.css">
+  <link rel="stylesheet" href="../static/style.css">
   <meta name="description" content="fouric's blog">
   <title>Learn OpenGL: Chapters 1-4 | Slightly Preferable to the Alternative</title>
 </head>
@@ -17,7 +17,7 @@
     <div class="row justify-content-center col-md-12">
       <div class="card col-md-8" style="background-color: transparent;">
         <div class="links">
-          <a href="https://fouric.github.io/index.html" class="toplink">Index</a> <a href="#1" class="toplink">About</a> <a href="#1" class="toplink">Contact</a> <a href="https://fouric.github.io/links.html" class="toplink">Links</a>
+          <a href="../index.html" class="toplink">Index</a> <a href="../#1" class="toplink">About</a> <a href="../#1" class="toplink">Contact</a> <a href="../links.html" class="toplink">Links</a>
         </div>
       </div>
     </div>
@@ -56,10 +56,10 @@
         <h2>Chapter 4: Hello Window</h2>
         <p>Ah, here's where things get interesting. Here's the window and GLEW initialization code:</p>
         <pre><code>glfwInit();
-glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+glfwWindowHint(GLFW&lt;em&gt;CONTEXT&lt;/em&gt;VERSION&lt;em&gt;MAJOR, 3);
+glfwWindowHint(GLFW&lt;/em&gt;CONTEXT&lt;em&gt;VERSION&lt;/em&gt;MINOR, 3);
+glfwWindowHint(GLFW&lt;em&gt;OPENGL&lt;/em&gt;PROFILE, GLFW&lt;em&gt;OPENGL&lt;/em&gt;CORE&lt;em&gt;PROFILE);
+glfwWindowHint(GLFW&lt;/em&gt;RESIZABLE, GL&lt;em&gt;FALSE);
 GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
 if (window == nullptr) {
     std::cout &lt;&lt; "Failed to create GLFW window" &lt;&lt; std::endl;
@@ -67,8 +67,8 @@ if (window == nullptr) {
     return -1;
 }
 glfwMakeContextCurrent(window);
-glewExperimental = GL_TRUE;
-if (glewInit() != GLEW_OK) {
+glewExperimental = GL&lt;/em&gt;TRUE;
+if (glewInit() != GLEW&amp;lowbar;OK) {
     std::cout &lt;&lt; "Failed to initialize GLEW" &lt;&lt; std::endl;
     return -1;</code></pre>
         <pre><code>}</code></pre>

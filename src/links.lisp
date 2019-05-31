@@ -13,16 +13,17 @@
                                          "Link Tree"))
                               (:div :class "d-flex p-4 bg-transparent"))
                              (:div :class "card col-md-9 bg-transparent colorBlack"
-                                   (:h4 "Programming")
+                                   (:h4 "News")
                                    (:div :class "margin-left"
-                                         (:p (:a :href "#first-link-target" "First link text") ": first link description")
-                                         (:p (:a :href "#second-link-target" "Second link text") ": second link description")
-                                         (:p (:a :href "#third-link-target" "Third link text") ": third link description")))
+                                         (:p (:a :href "https://news.ycombinator.com/" "Hacker News") ": Paul Graham's startup culture & webdev link aggregator")
+                                         (:p (:a :href "https://hackaday.com/" "Hack A Day") ": more computer-engineering-y, hack-y stuff with a mix of tutorials and project breakdowns")
+                                         (:p (:a :href "https://lobste.rs/" "Lobsters") ": higher-quality, invite-only HN clone with a few improvements and a focus on PLT")
+                                         (:p (:a :href "http://lambda-the-ultimate.org/" "Lambda the Ultimate") ": for those wanting only PLT and nothing else")
+                                         (:p (:a :href "https://arstechnica.com/" "Ars Technica") ": more consumer-focused tech news, although some science content and good in-depth reporting keep it a cut above mainstream")
+                                         ))
                              (:div :class "d-flex p-4 bg-transparent")
                              (:div :class "d-flex p-4 bg-transparent")
                              (:div :class "card col-md-9 bg-transparent colorBlack"
-                                   (:h4 "Hardware")
+                                   (:h4 "Lisp")
                                    (:div :class "margin-left"
-                                         (:p (:a :href "#fourth-link-target" "Fourth link text") ": fourth link description")
-                                         (:p (:a :href "#fifth-link-target" "Fifth link text") ": fifthlink description")
-                                         (:p (:a :href "#sixth-link-target" "Sixth link text") ": sixth link description")))))))))
+                                         (:p (:a :href "http://www.gigamonkeys.com/book/" "Practical Common Lisp") ": one of the classic Common Lisp introductions, written for people who already know how to program but not how to Lisp")))))))))

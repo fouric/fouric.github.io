@@ -1,5 +1,4 @@
 (in-package :blag)
-
 (eval-when (:compile-toplevel)
   (setf (html-mode) :html5
         *attribute-quote-char* #\"))
@@ -28,9 +27,7 @@
     (:head
      (:meta :charset "utf-8")
      (:link :rel "stylesheet"
-            :href "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-            :integrity "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-            :crossorigin "anonymous")
+            :href (reference-to-relpath output-path "static/bootstrap-purged.css"))
      (:link :rel "stylesheet"
             :href (reference-to-relpath output-path "static/style.css"))
      (:meta :name "description" :content "fouric's blog")

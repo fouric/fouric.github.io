@@ -21,4 +21,5 @@
                (:file "links")
                (:file "index")
                (:file "post")
+               (:file "postprocess")
                (:file "generate")))

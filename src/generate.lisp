@@ -15,4 +15,5 @@
                    (post title output-name content epoch)
                    (list title output-name summary)))))
     (links)
-    (index posts)))
+    (index posts)
+    (postprocess)))

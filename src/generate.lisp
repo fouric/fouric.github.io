@@ -15,13 +15,17 @@
                    (post title output-name content epoch)
                    (list title output-name summary)))))
     (links '(("News"
-             ("https://news.ycombinator.com/" "Hacker News" "Paul Graham's startup culture & webdev link aggregator")
-             ("https://hackaday.com/" "Hack A Day" "more computer-engineering-y, hack-y stuff with a mix of tutorials and project breakdowns")
-             ("https://lobste.rs/" "Lobsters" "higher-quality, invite-only HN clone with a few improvements and a focus on PLT")
-             ("http://lambda-the-ultimate.org/" "Lambda the Ultimate" "for those wanting only PLT and nothing else")
-             ("https://arstechnica.com/" "Ars Technica" "more consumer-focused tech news, although some science content and good in-depth reporting keep it a cut above mainstream"))
-            ("Lisp"
-             ("http://www.gigamonkeys.com/book/" "Practical Common Lisp" "one of the classic Common Lisp introductions, written for people who already know how to program but not how to Lisp"))))
+              ("https://news.ycombinator.com/" "Hacker News" "Paul Graham's startup culture & webdev link aggregator")
+              ("https://hackaday.com/" "Hack A Day" "more computer-engineering-y, hack-y stuff with a mix of tutorials and project breakdowns")
+              ("https://lobste.rs/" "Lobsters" "higher-quality, invite-only HN clone with a few improvements and a focus on PLT")
+              ("http://lambda-the-ultimate.org/" "Lambda the Ultimate" "for those wanting only PLT and nothing else")
+              ("https://arstechnica.com/" "Ars Technica" "more consumer-focused tech news, although some science content and good in-depth reporting keep it a cut above mainstream"))
+             ("Lisp"
+              ("http://www.gigamonkeys.com/book/" "Practical Common Lisp" "one of the classic Common Lisp introductions, written for people who already know how to program but not how to Lisp"))
+             ("Computer Engineering"
+              ("http://zipcpu.com/" "ZipCPU Blog" "incredibly clear, concise, actively-updated FPGA blog with a pleasant writing style and large backlog"))
+             ("Blogs"
+              ("https://www.joelonsoftware.com/" "Joel on Software" "Joel Spolsky's blog on user interface design, startups, software engineering, and more, with a truly ridiculous amount of content and some of the most technically skilled writing I've seen on the internet"))))
     (index posts)
     (about)
     (postprocess)))

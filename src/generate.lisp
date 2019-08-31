@@ -23,4 +23,5 @@
             ("Lisp"
              ("http://www.gigamonkeys.com/book/" "Practical Common Lisp" "one of the classic Common Lisp introductions, written for people who already know how to program but not how to Lisp"))))
     (index posts)
+    (about)
     (postprocess)))

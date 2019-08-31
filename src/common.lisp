@@ -17,7 +17,7 @@
            (:div :class "card col-md-8 transparent-background"
                  (:div :class "links"
                        (loop :for label/url :in `(("Index" "index.html")
-                                                  ("About" "#1")
+                                                  ("About" "about.html")
                                                   ("Contact" "#1")
                                                   ("Links" "links.html"))
                              :do (htm (:a :href (reference-to-relpath output-path (second label/url)) :class "toplink" (str (first label/url)))))))))))

@@ -22,4 +22,5 @@
                (:file "index")
                (:file "post")
                (:file "postprocess")
+               (:file "about")
                (:file "generate")))

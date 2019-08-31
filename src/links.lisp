@@ -3,7 +3,7 @@
 (defun links ()
   (with-boilerplate ( "links" "Links")
     (:div :class "row justify-content-center col-md-12"
-          (:div :class "card col-md-9 rounded-0 cord-border"
+          (:div :class "card col-md-9 rounded-0 card-border"
                 (:div :class "card marg"
                       (:body :class "backPic textColor"
                              (:div :class "d-flex p-2 bg-transparent")

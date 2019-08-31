@@ -70,3 +70,22 @@ hr {
 .marg {margin:4%;}
 .marg2 {margin:2%;}
 .colorBlack {color: black;}
+
+.card-border {
+    border: 5px solid #AC885E;
+    padding: 1%;
+    margin: 1%;
+}
+
+.transparent-background {
+    background-color: transparent;
+}
+
+.header-text {
+    font-family: mono;
+    margin: 0 0 3% 0;
+}
+
+.post-description {
+    margin-bottom: 0;
+}

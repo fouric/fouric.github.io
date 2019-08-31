@@ -6,15 +6,15 @@
 (defun page-header (output-path stream)
   (with-html-output (s stream :indent t)
     (:div
-     (:div :class "d-flex p-4" :style (inline-css '(:background-color transparent)))
+     (:div :class "d-flex p-4 transparent-background")
 
      (:div :class "row justify-content-center col-md-12"
-           (:p :class "display-4 text-center col-md-8" :style (inline-css '(:font-family mono :background-color transparent :margin "0 0 3% 0"))
+           (:p :class "display-4 text-center col-md-8 transparent-background header-text"
                (:b :class "text-white chalk"
                    "Slightly Preferable to the Alternative")))
 
      (:div :class "row justify-content-center col-md-12"
-           (:div :class "card col-md-8" :style (inline-css '(:background-color transparent))
+           (:div :class "card col-md-8 transparent-background"
                  (:div :class "links"
                        (loop :for label/url :in `(("Index" "index.html")
                                                   ("About" "#1")
@@ -47,7 +47,7 @@
              (:html :lang "en"
                     (html-header ,p ,f ,page-title)
 
-                    (:body :class "backPic" :style (inline-css '(:color black))
+                    (:body :class "backPic"
 
                            (page-header ,p ,f) ;; is this supposed to be f or html-stream? does it matter?
 

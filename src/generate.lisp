@@ -14,6 +14,13 @@
                         ((:plist title content summary epoch) post-plist))
                    (post title output-name content epoch)
                    (list title output-name summary)))))
-    (links)
+    (links '(("News"
+             ("https://news.ycombinator.com/" "Hacker News" "Paul Graham's startup culture & webdev link aggregator")
+             ("https://hackaday.com/" "Hack A Day" "more computer-engineering-y, hack-y stuff with a mix of tutorials and project breakdowns")
+             ("https://lobste.rs/" "Lobsters" "higher-quality, invite-only HN clone with a few improvements and a focus on PLT")
+             ("http://lambda-the-ultimate.org/" "Lambda the Ultimate" "for those wanting only PLT and nothing else")
+             ("https://arstechnica.com/" "Ars Technica" "more consumer-focused tech news, although some science content and good in-depth reporting keep it a cut above mainstream"))
+            ("Lisp"
+             ("http://www.gigamonkeys.com/book/" "Practical Common Lisp" "one of the classic Common Lisp introductions, written for people who already know how to program but not how to Lisp"))))
     (index posts)
     (postprocess)))

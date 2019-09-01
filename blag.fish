@@ -19,12 +19,15 @@ function blag
             echo "    index: open local index.html in firefox"
             echo "    live: open production fouric.github.io in firefox"
             echo "    jay: open jay's gitlab site in firefox"
+            echo "    repo: open the github repo location in firefox"
         case index
             firefox $scriptdir/index.html
         case live
             firefox "https://fouric.github.io/"
         case jay
             firefox "https://gitlab.com/jaynky/last-lambda"
+        case repo
+            firefox "https://github.com/fouric/fouric.github.io"
         case '*'
             echo "error: unrecognized option: " $argv[1] 1>&2
             blag help

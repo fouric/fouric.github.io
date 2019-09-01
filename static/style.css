@@ -89,3 +89,15 @@ hr {
 .post-description {
     margin-bottom: 0;
 }
+
+.card.col-md-8.rounded-0.card-border {
+    background-color: #b7dee6;
+}
+
+.card {
+    background-color: inherit;
+}
+
+.card-border {
+    background-color: #b7dee6;
+}

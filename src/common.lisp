@@ -26,6 +26,8 @@
   (with-html-output (s stream :indent t)
     (:head
      (:meta :charset "utf-8")
+     ;; https://uglyduck.ca/stop-crawling-google/
+     (:meta :name "googlebot" :content "noindex")
      (:link :rel "stylesheet"
             :href (reference-to-relpath output-path "static/bootstrap-purged.css"))
      (:link :rel "stylesheet"

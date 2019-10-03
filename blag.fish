@@ -28,6 +28,12 @@ function blag
             firefox "https://gitlab.com/jaynky/last-lambda"
         case repo
             firefox "https://github.com/fouric/fouric.github.io"
+        case compose
+            if test (count $argv) -eq 1
+                echo "error: need title" 1>&2
+                return 1
+            end
+            e $scriptdir/post-contents/(date +%Y-%m-%d)-$argv[2]
         case '*'
             echo "error: unrecognized option: " $argv[1] 1>&2
             blag help

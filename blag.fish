@@ -21,6 +21,8 @@ function blag
             echo "    jay: open jay's gitlab site in firefox"
             echo "    repo: open the github repo location in firefox"
             echo "    compose <title>: start composing a post with the given title"
+            echo ""
+            echo "to re-generate the pages, load :blag and then run (blag:generate)"
         case index
             firefox $scriptdir/index.html
         case live

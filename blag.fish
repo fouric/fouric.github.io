@@ -20,6 +20,7 @@ function blag
             echo "    live: open production fouric.github.io in firefox"
             echo "    jay: open jay's gitlab site in firefox"
             echo "    repo: open the github repo location in firefox"
+            echo "    compose <title>: start composing a post with the given title"
         case index
             firefox $scriptdir/index.html
         case live
@@ -33,6 +34,8 @@ function blag
                 echo "error: need title" 1>&2
                 return 1
             end
+            cp $scriptdir/post-content-template $scriptdir/post-contents/(date +%Y-%m-%d)-$argv[2]
+            sed -i (echo -s 's/EPOCH/' (date +%s) '/') $scriptdir/post-contents/(date +%Y-%m-%d)-$argv[2]
             e $scriptdir/post-contents/(date +%Y-%m-%d)-$argv[2]
         case '*'
             echo "error: unrecognized option: " $argv[1] 1>&2

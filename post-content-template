@@ -1,0 +1,6 @@
+(
+:title "TITLE"
+:summary "SUMMARY"
+:epoch "date +%s"
+:content "
+")
